@@ -209,7 +209,7 @@ storyController.createNewStory = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(currentUserId);
 
-  if (!user.subscription.isSubscription)
+  if (!user.subscription.isSubscription || !user.admin)
     throw new AppError(
       400,
       "Permission Required or Subscription is expired",
