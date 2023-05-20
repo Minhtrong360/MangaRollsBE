@@ -7,13 +7,9 @@ const genresController = {};
 
 genresController.getGenres = catchAsync(async (req, res, next) => {
   // Get data from request
-  let currentUserId = req.userId;
 
   // Validation
-  const isAdmin = await User.findById(currentUserId);
-  if (!isAdmin.admin) {
-    throw new AppError(401, "Admin requird", "Get Genres Error");
-  }
+
   const genres = await Genres.findOne();
 
   return sendResponse(res, 200, true, genres, null, "Get Genres Successfully");

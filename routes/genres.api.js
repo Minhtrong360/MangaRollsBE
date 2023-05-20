@@ -6,7 +6,7 @@ const genresController = require("../controllers/genres.controller");
 const validators = require("../middlewares/validators");
 
 // Genres
-router.get("/", authentication.loginRequired, genresController.getGenres);
+router.get("/", genresController.getGenres);
 
 router.post(
   "/",

@@ -209,7 +209,7 @@ storyController.createNewStory = catchAsync(async (req, res, next) => {
 
   const user = await User.findById(currentUserId);
 
-  if (!user.subscription.isSubscription || !user.admin)
+  if (!user.subscription.isSubscription && !user.admin)
     throw new AppError(
       400,
       "Permission Required or Subscription is expired",
@@ -300,17 +300,17 @@ storyController.deleteSingleStory = catchAsync(async (req, res, next) => {
   const user = await User.findById(currentUserId);
 
   // Process
-  let query = { _id: storyId, author: currentUserId };
+  let query = { _id: storyId, authorId: currentUserId };
   if (user.admin) {
     query = { _id: storyId };
   }
-
+  console.log("query", query);
   const story = await Story.findOneAndUpdate(
     query,
     { isDelete: true },
     { new: true }
   );
-
+  console.log("story", story?.title);
   if (!story) {
     throw new AppError(
       400,
