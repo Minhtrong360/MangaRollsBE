@@ -207,14 +207,14 @@ storyController.createNewStory = catchAsync(async (req, res, next) => {
     req.body;
   // Validation
 
-  const user = await User.findById(currentUserId);
+  // const user = await User.findById(currentUserId);
 
-  if (!user.subscription.isSubscription && !user.admin)
-    throw new AppError(
-      400,
-      "Permission Required or Subscription is expired",
-      "Create Story Error"
-    );
+  // if (!user.subscription.isSubscription && !user.admin)
+  //   throw new AppError(
+  //     400,
+  //     "Permission Required or Subscription is expired",
+  //     "Create Story Error"
+  //   );
   // Process
 
   let story = await Story.findOne({ title: { $regex: title, $options: "i" } });
@@ -247,14 +247,14 @@ storyController.updateSingleStory = catchAsync(async (req, res, next) => {
   const { data } = req.body;
   // Validation
 
-  const user = await User.findById(currentUserId);
+  // const user = await User.findById(currentUserId);
 
-  if (!user.subscription.isSubscription)
-    throw new AppError(
-      400,
-      "Permission Required or Subscription is expired",
-      "Update Story Error"
-    );
+  // if (!user.subscription.isSubscription)
+  //   throw new AppError(
+  //     400,
+  //     "Permission Required or Subscription is expired",
+  //     "Update Story Error"
+  //   );
 
   let story = await Story.findById(storyId);
   if (!story)

@@ -123,14 +123,14 @@ chapterController.createNewChapterOfStory = catchAsync(
     let { title, avatar, content } = req.body;
     // Validation
 
-    const user = await User.findById(currentUserId);
+    // const user = await User.findById(currentUserId);
 
-    if (!user?.subscription?.isSubscription)
-      throw new AppError(
-        400,
-        "Permission Required or Subscription is expired",
-        "Create Chapter Error"
-      );
+    // if (!user?.subscription?.isSubscription)
+    //   throw new AppError(
+    //     400,
+    //     "Permission Required or Subscription is expired",
+    //     "Create Chapter Error"
+    //   );
     // Process
 
     let story = await Story.findById(storyId);
@@ -177,14 +177,14 @@ chapterController.updateChapterOfStory = catchAsync(async (req, res, next) => {
   let { updateData } = req.body;
   // Validation
 
-  const user = await User.findById(currentUserId);
+  // const user = await User.findById(currentUserId);
 
-  if (!user.subscription.isSubscription)
-    throw new AppError(
-      400,
-      "Permission Required or Subscription is expired",
-      "Update Chapter Error"
-    );
+  // if (!user.subscription.isSubscription)
+  //   throw new AppError(
+  //     400,
+  //     "Permission Required or Subscription is expired",
+  //     "Update Chapter Error"
+  //   );
 
   let chapter = await Chapter.findById(chapterId).populate("ofStory");
   if (!chapter)
