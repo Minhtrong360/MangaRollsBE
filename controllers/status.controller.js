@@ -76,6 +76,8 @@ statusController.getStatus = catchAsync(async (req, res, next) => {
       .sort({ createdAt: -1 })
       .skip(offset)
       .limit(limit);
+
+    console.log("status", status);
     sendResponse(res, 200, true, status, null, "Get Status Successfully");
   } else {
     throw new AppError(401, "Admin requird", "Get Status Error");

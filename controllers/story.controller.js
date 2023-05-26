@@ -310,7 +310,7 @@ storyController.deleteSingleStory = catchAsync(async (req, res, next) => {
     { isDelete: true },
     { new: true }
   );
-  console.log("story", story?.title);
+  console.log("story", story);
   if (!story) {
     throw new AppError(
       400,
@@ -318,6 +318,14 @@ storyController.deleteSingleStory = catchAsync(async (req, res, next) => {
       "Delete Single Story Error"
     );
   }
+  await calculateStoryCount(currentUserId);
+  const chaptersOfStory = await Chapter.find({ ofStory: storyId });
+  console.log("chaptersOfStory", chaptersOfStory);
+  chaptersOfStory.map(async (chapter) => {
+    chapter.isDelete = true;
+    console.log("chapter.isDelete:", chapter.isDelete);
+    await chapter.save();
+  });
 
   // Response
   sendResponse(res, 200, true, story, null, "Delete Story Successfully");

@@ -31,6 +31,7 @@ router.post(
  * @access Login required
  */
 router.get("/", authentication.loginRequired, userController.getUsers);
+
 router.get(
   "/subscribed",
   authentication.loginRequired,
